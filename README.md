@@ -14,12 +14,14 @@ Example
 
 example picture
 
+![image](block.jpg)
+
 block:
 
     [weather]
     markup=pango
     separator=true
-    command=python3 ~/code/python/w.py pripyat
+    command=python3 ~/code/python/w.py kiev
     interval=300
 
 
