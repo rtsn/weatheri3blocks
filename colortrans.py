@@ -357,19 +357,3 @@ def rgb2short(rgb):
 
 RGB2SHORT_DICT, SHORT2RGB_DICT = _create_dicts()
 
-#---------------------------------------------------------------------
-#
-#if __name__ == '__main__':
-#    import doctest
-#    doctest.testmod()
-#    if len(sys.argv) == 1:
-#        print_all()
-#        raise SystemExit
-#    arg = sys.argv[1]
-#    if len(arg) < 4 and int(arg) < 256:
-#        rgb = short2rgb(arg)
-#        sys.stdout.write(rgb)
-#    else:
-#        short, rgb = rgb2short(arg)
-#        sys.stdout.write('RGB %s -> xterm color approx \033[38;5;%sm%s (%s)' % (arg, short, short, rgb))
-#        sys.stdout.write("\033[0m\n")

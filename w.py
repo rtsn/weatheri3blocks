@@ -15,16 +15,13 @@ import colortrans
 # write reasonable comments
 # clean up code
 # check that there is an argument
-# pythonify if init = main
-# def main etc
-# handle location not found
 # write sdout
 # write sder
 # stdin?
-# make everything into functions
 #decypher preparsing and make readable comments
 # deal with m = 0 returned somehow from genTemp comes from range thingy
 #change name to
+#fix range problem
 
 
 #eg hexString = "#5fff00
@@ -207,7 +204,7 @@ def main():
     wind = genWind(data)
     icon = getIcon(data)
 
-    #document possible strings
+    #document all possible strings
     var = data[0].lower()+"\n"
     with open("/home/nstr/WEATHER.txt", "a") as myfile:
         myfile.write(var)
