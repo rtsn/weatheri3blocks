@@ -2,7 +2,6 @@
 # -*- coding: latin-1 -*-
 import re, sys
 import requests
-import string
 import fontawesome as fa
 import colortrans
 
