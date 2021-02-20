@@ -1,5 +1,5 @@
 # weatheri3blocks
-Minimalistic weather block for i3blocks written in python parsing wttr.in
+Minimalistic weather block for i3blocks written in python.
 
 
 This is a small python script to parse some basic weather information from
