@@ -5,15 +5,7 @@ import requests
 import fontawesome as fa
 import colortrans
 
-#todo
-# fix variable names
-# example remove "clear" completely?
 # write reasonable comments
-# clean up code
-# write sdout
-# write sder
-# stdin?
-# decypher preparsing and make readable comments
 
 def getData(location):
     url = "http://wttr.in/~"+location
@@ -76,6 +68,8 @@ def genTemp(data):
         color = str(int((int(color)+int(color2))/2))
 
     colorRGB = colortrans.short2rgb(color)
+    if temp[0] == '+':
+        temp = temp[1:]
     if int(temp) >= 15 or int(temp) <= -10:
         temp  = "<b>"+str(temp)+"</b>"
     tempStr = ' <span foreground="#'+colorRGB+'">'+temp+'</span>'+data[-3]
@@ -107,9 +101,9 @@ def getIcon(data):
     elif "sunny" in s:
         icon = fa.icons['sun']
     elif "rain" in s:
-        icon = fa.icons['umberella']
+        icon = fa.icons['umbrella']
     elif "drizzle" in s:
-        icon = fa.icons['umberella']
+        icon = fa.icons['umbrella']
     elif "snow" in s:
         icon = fa.icons['snowflake']
     elif "clear" in s:
@@ -130,12 +124,12 @@ def main():
     wind = genWind(data)
     icon = getIcon(data)
 
-    var = data[0].lower()+"\n"
-    with open("/home/nstr/WEATHER.txt", "a") as myfile:
+    var = data[0].lower()+"\n"  #this is temporary
+    with open("WEATHER.txt", "a") as myfile:
         myfile.write(var)
 
-    finalString = icon+temp+wind
-    print(finalString)
+    output = icon+temp+wind
+    print(output)
 
 if __name__ == "__main__":
     main()

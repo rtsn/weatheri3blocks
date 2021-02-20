@@ -7,7 +7,7 @@ This is a small python script to parse some basic weather information from
 
 ![image](block.jpg)
 
-# Requirements, Configuration and Installation
+# Requirements, configuration and installation
 To use this script you only need python3 and
 [fontawesome](https://pypi.org/project/fontawesome/). Download *w.py* and
 *colortrans.py* and add a block
