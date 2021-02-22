@@ -1,13 +1,12 @@
 #!/usr/bin/python3
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 import re, sys
 import requests
 import fontawesome as fa
 import colortrans
 
-# write reasonable comments
-
 def getData(location):
+    # get data from wttr.in
     url = "http://wttr.in/~"+location
     headers={'Accept-Language':'en'}
 
@@ -27,6 +26,11 @@ def getData(location):
     return data
 
 def parseData(data):
+    # process the data to get something of the form
+    #['Light rain', ('49', '+3'), ('51', '-3'), '°C', '↑', ('196', '39')] or
+    #['Sunny', ('154', '16'), '', '↑', ('208', '24')]
+    # this function is messy and should be imporved.
+
     data = data[1:6] #strip away some stuff
     output = []
 
@@ -46,7 +50,7 @@ def parseData(data):
                 if ("0m" in x or "1m" in x) and "38;5;" not in x:
                         x = re.sub('[1|0]m', '', x).strip()
                 x = x.strip()
-                if x not in ['','(',') °C']:
+                if x not in ['','(',]:
                     if "38;5;" in x:
                         color = re.findall('38;5;(.*)m', x)[0]
                         if color[0] == '0':
@@ -54,28 +58,32 @@ def parseData(data):
                         value = re.sub('.*m', '', x)
                         x = (color,value)
                     output.append(x)
-
-    output[-3] = output[-3][2:] #fulhax to fix deg C
     return output
 
 def genTemp(data):
+    # generate temperature string
     color = data[1][0]
     temp = data[1][1]
-    if len(data) == 5:
+    if len(data) == 6: #if temp in range calc mean
         color2 = data[2][0]
         temp2 = data[2][1]
         temp = round((int(temp)+int(temp2))/2)
         color = str(int((int(color)+int(color2))/2))
 
     colorRGB = colortrans.short2rgb(color)
-    if temp[0] == '+':
-        temp = temp[1:]
+    if isinstance(temp, str):
+        if temp[0] == '+':
+            temp = temp[1:]
     if int(temp) >= 15 or int(temp) <= -10:
         temp  = "<b>"+str(temp)+"</b>"
-    tempStr = ' <span foreground="#'+colorRGB+'">'+temp+'</span>'+data[-3]
+    temp = str(temp)
+    degC = "°C"
+
+    tempStr = ' <span foreground="#'+colorRGB+'">'+temp+'</span>'+degC
     return tempStr
 
 def genWind(data):
+    # generate wind speed
     color = data[-1][0]
     colorRGB = colortrans.short2rgb(color)
     wind = data[-1][1]
@@ -92,6 +100,7 @@ def genWind(data):
     return output
 
 def getIcon(data):
+    # replace string "cloud" with cute cloud icon
     s = data[0].lower()
     icon = ""
     if "cloudy" in s:
@@ -108,6 +117,8 @@ def getIcon(data):
         icon = fa.icons['snowflake']
     elif "clear" in s:
         icon= ""
+    else:
+        icon = data[0]
     return icon
 
 def main():
