@@ -15,7 +15,7 @@ def get_data(location):
     headers={'Accept-Language':'en'}
 
     resp = requests.get(url,headers=headers)
-    data =resp.content.decode("utf-8")
+    data = resp.content.decode("utf-8")
     data = data.split("\n")
 
     bolt = fa.icons['bolt']
