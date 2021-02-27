@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 ''' fethes data weather data from wttr.in and transforms it into a
     i3blocks frindly string '''
